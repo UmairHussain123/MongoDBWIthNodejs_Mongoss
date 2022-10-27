@@ -14,26 +14,45 @@ mongoose
 var db = mongoose.connection;
 db.on("erre", console.error.bind(console, "connection errorrr"));
 
-db.once("open", function () {
-  console.log("sucss");
 
-  var BookSchema = mongoose.Schema({
-    name: String,
-    price: Number,
-    quantity: Number,
-  });
 
-  var Book = mongoose.model("Book", BookSchema, "bookstore");
+// get data
 
-  var book1 = new Book({
-    name: "my first Monogo test",
-    price: 20,
-    quantity: 10,
-  });
 
-  book1.save(function (err, book) {
-    if (err) return console.log(err);
-
-    console.log(book.name + "saved to book store");
-  });
+db.collection("bookstore").findOne({price:200}, function(err, result) {
+  if (err) throw err;
+  console.log(result);
+  db.close();
 });
+
+// var query = {name: "test book 4"};
+// db.collection("bookstore").find(query).toArray(function(err, result) {
+//   if (err) throw err;
+//   console.log(result);
+//   db.close();
+// });
+
+// insert data
+// db.once("open", function () {
+//   console.log("sucss");
+
+//   var BookSchema = mongoose.Schema({
+//     name: String,
+//     price: Number,
+//     quantity: Number,
+//   });
+
+//   var Book = mongoose.model("Book", BookSchema, "bookstore");
+
+//   var book1 = new Book({
+//     name: "test book 4",
+//     price: 200,
+//     quantity: 10,
+//   });
+
+//   book1.save(function (err, book) {
+//     if (err) return console.log(err);
+
+//     console.log(book.name + "saved to book store");
+//   });
+// });
